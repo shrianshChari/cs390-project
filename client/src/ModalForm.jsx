@@ -9,6 +9,8 @@ export default function ModalForm() {
   function printLink(event) {
     event.preventDefault()
     alert(`You're trying to analyze ${url}`)
+    setOpen(false)
+    setUrl("")
   }
 
   return (
