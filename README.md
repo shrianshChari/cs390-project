@@ -11,7 +11,7 @@ The backend and frontend integration is not complete (honestly neither is comple
 
 How to get it working:
 - Download PocketBase from website (It's a standalone executable so you don't have to install it. It might require Go to work since it is written in Go, but I personally doubt that it will.).
-- Run `./pocketbase serve` and open `http://localhost:8090` in web browser
+- Run `./pocketbase serve` and open `http://localhost:8090/_/` in web browser
 - Log in on admin screen.
 - Navigate to `Settings > Import Collections`.
 - Either load `pb_schema.json` or copy its contents into the text box to import it.
