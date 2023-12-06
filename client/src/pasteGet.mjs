@@ -1,24 +1,22 @@
-/*
- * Ok so
- * I tested this function with Bun (mostly for fun) and it worked completely fine.
- * I then try and move it to this node project and webpack throws polyfill issues with jsdom
- * I know nothing about polyfill so...
- * Thanks JavaScript
- */
-
-
-/* import * as jsd from 'jsdom'
 import { Koffing } from 'koffing';
 
 // console.log(await fetchPaste('https://pokepast.es/d52689965a735213'))
 
 // This I kinda figured out on my own by just reading the documentation
 export default async function fetchPaste(url) {
+	/*
+	 * Ok so
+	 * This code *should* work
+	 * I'm like 90% sure of that
+	 * The problem is CORS
+	 * While it's good for them to have good web security
+	 * It also makes this code not work unless I move this code to the backend
+	 * Which I don't want to do
+	 */
 	const response = await fetch(url)
 	const body = await response.text()
 
-	let dom_parse = new jsd.JSDOM(body)
-	let document = dom_parse.window.document
+  let document = new DOMParser().parseFromString(body, 'text/html')
 
 	let title = document.getElementsByTagName('h1')[0].textContent
 
@@ -56,4 +54,4 @@ export default async function fetchPaste(url) {
 	}
 
 	return output
-} */
+}

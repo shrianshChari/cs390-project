@@ -3,7 +3,7 @@ import fetchPaste from "./pasteGet";
 
 import './styles/ModalForm.css'
 
-export default function ModalForm() {
+export default function ModalForm({ dataFromInput }) {
   const [isOpen, setOpen] = React.useState(false);
   const [url, setUrl] = React.useState("")
 
@@ -14,26 +14,44 @@ export default function ModalForm() {
     return pattern.test(url)
   }
 
-  function printLink(event) {
-    event.preventDefault()
-
-    if (verifyPasteUrl(url)) {
-      alert(`You're trying to analyze ${url}`)
-    } else {
-      alert('Please provide a PokePaste URL.')
-      // const pasteData = fetchPaste(url)
-      //   .then((res) => {
-      //     console.log(res)
-      //   })
-      
-    }
+  function clearModal() {
     setOpen(false)
     setUrl("")
   }
 
+  function processPokepaste(event) {
+    event.preventDefault()
+
+    if (verifyPasteUrl(url)) {
+      /*
+       * Ideally, I could just use this code. However,
+       * for reasons explained in pasteGet.mjs, I can't
+       * use the commented out lines of code.
+       * Below I have put what should be the output of that code.
+       */
+      // const pasteData = fetchPaste(url)
+      //   .then((res) => {
+      //     console.log(res)
+      //   })
+
+      const pasteData = {
+        pokepaste_url: "https://pokepast.es/d52689965a735213",
+        pokemon: ["weezing-galar", "heatran", "arceus-grass", "zacian", "cyclizar", "palkia"],
+        title: "Bulky Tran 4",
+        author: "Grabby",
+        format: "gen9ubersuu"
+      }
+
+      dataFromInput(pasteData)
+    } else {
+      alert('Please provide a PokePaste URL.')
+    }
+    clearModal()
+  }
+
   return (
     <div className="completeModal">
-    {/*
+      {/*
       * For using the <dialog> element: https://blog.logrocket.com/creating-reusable-pop-up-modal-react/
       * For the idea of making the open state of the modal reactive: https://blog.rixlayer.dev/react-modals
       */}
@@ -41,7 +59,7 @@ export default function ModalForm() {
       <dialog open={isOpen} className="dialog">
 
         {/* https://www.w3schools.com/react/react_forms.asp */}
-        <form onSubmit={printLink}>
+        <form onSubmit={processPokepaste}>
           <label><h3 className="linkTitle">Pokepaste Link:</h3></label>
 
           <br />
@@ -59,7 +77,7 @@ export default function ModalForm() {
           <button type="submit">Submit</button>
         </form>
 
-        <button id="closeModal" onClick={() => setOpen(false)}>Close</button>
+        <button id="closeModal" onClick={() => clearModal()}>Close</button>
       </dialog>
     </div>
   )
