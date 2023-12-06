@@ -1,5 +1,16 @@
-import * as jsd from 'jsdom'
-import { Koffing, Pokemon } from 'koffing';
+/*
+ * Ok so
+ * I tested this function with Bun (mostly for fun) and it worked completely fine.
+ * I then try and move it to this node project and webpack throws polyfill issues with jsdom
+ * I know nothing about polyfill so...
+ * Thanks JavaScript
+ */
+
+
+/* import * as jsd from 'jsdom'
+import { Koffing } from 'koffing';
+
+// console.log(await fetchPaste('https://pokepast.es/d52689965a735213'))
 
 // This I kinda figured out on my own by just reading the documentation
 export default async function fetchPaste(url) {
@@ -45,4 +56,4 @@ export default async function fetchPaste(url) {
 	}
 
 	return output
-}
+} */

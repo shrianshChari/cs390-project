@@ -1,4 +1,5 @@
 import React from "react";
+import fetchPaste from "./pasteGet";
 
 import './styles/ModalForm.css'
 
@@ -19,7 +20,12 @@ export default function ModalForm() {
     if (verifyPasteUrl(url)) {
       alert(`You're trying to analyze ${url}`)
     } else {
-      alert('Please provide a Pokepaste URL.')
+      alert('Please provide a PokePaste URL.')
+      // const pasteData = fetchPaste(url)
+      //   .then((res) => {
+      //     console.log(res)
+      //   })
+      
     }
     setOpen(false)
     setUrl("")
