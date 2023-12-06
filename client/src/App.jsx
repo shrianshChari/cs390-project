@@ -24,22 +24,38 @@ export default function App() {
    * The code to query the full list would be something similar to how
    * pasteList is queried in the updateData function.
    */
-  const [teamList, setTeamList] = React.useState(teams)
+  const [teamList, setTeamList] = React.useState([])
   const [pasteData, setPasteData] = React.useState({})
 
-  // https://www.w3schools.com/react/react_useeffect.asp
-  React.useEffect(() => {
-    const updateData = async () => {
-      const record = await pb.collection('pokepastes').create(pasteData);
+  const sendData = async () => {
+    await pb.collection('pokepastes').create(pasteData);
+    // console.log(pasteData)
+  }
 
+  const fetchData = async () => {
       // Pocketbase documentation
       let pasteList = await pb.collection('pokepastes').getFullList({
         sort: '-created'
       })
 
+      // console.log(pasteList)
+
       setTeamList(pasteList)
+  }
+
+  // https://www.w3schools.com/react/react_useeffect.asp
+  React.useEffect(() => {
+    const a = async () => {
+      // https://www.w3docs.com/snippets/javascript/how-to-check-if-javascript-object-is-empty.html
+      if (Object.keys(pasteData).length !== 0) {
+        // I'm not too sure why, but it seems to create the same entry multiple
+        // times when using useEffect (since during my testing I had no issues
+        // with it randomly sending duplicate entries).
+        await sendData();
+      }
+      await fetchData();
     }
-    updateData();
+    a();
   }, [pasteData])
 
   // https://www.freecodecamp.org/news/pass-data-between-components-in-react/
